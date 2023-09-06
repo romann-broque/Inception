@@ -7,9 +7,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/requirements/nginx/nginx.conf
-      - ./nginx.crt:/requirements/nginx/nginx.crt
-      - ./nginx.key:/requirements/nginx/nginx.key
+      - ./requirements/nginx/conf:/etc/nginx.conf
     networks:
       - mynetwork
 
