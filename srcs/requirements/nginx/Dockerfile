@@ -1,13 +1,11 @@
 # Use the official NGINX image as the base image
-FROM nginx:latest
+FROM nginx:1.21.4
 
 # Set the working directory inside the container
 WORKDIR /etc/nginx
 
 # Copy the NGINX configuration, SSL certificate, and key into the container
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./conf/nginx.crt /etc/nginx/nginx.crt
-COPY ./conf/nginx.key /etc/nginx/nginx.key
+COPY ./conf/ /etc/nginx/
 COPY ./tools/index.html /usr/share/nginx/html/index.html
 
 # Expose ports 80 and 443 for HTTP and HTTPS traffic

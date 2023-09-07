@@ -2,6 +2,7 @@ version: '3'
 
 services:
   nginx:
+    container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
@@ -10,6 +11,9 @@ services:
       - "443:443"
     networks:
       - mynetwork
+    volumes:
+      - ./requirements/nginx/conf/:/etc/nginx
+      - ./requirements/nginx/tools/:/usr/share/nginx/html
 
 networks:
   mynetwork:
