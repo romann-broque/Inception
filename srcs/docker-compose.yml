@@ -2,12 +2,12 @@ version: '3'
 
 services:
   nginx:
-    image: nginx:latest
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./requirements/nginx/conf:/etc/nginx.conf
     networks:
       - mynetwork
 
