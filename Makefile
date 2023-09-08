@@ -12,7 +12,7 @@ WORDPRESS_DIR		= $(REQ_DIR)/wordpress/
 
 ## IMAGES ##
 
-RM_IMG 				:= if [ $$(docker images -q) ]; then docker rmi $$(docker images -q); fi
+RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q); fi
 
 all:
 	cd $(SRCS); docker-compose build

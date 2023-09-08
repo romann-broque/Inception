@@ -14,6 +14,31 @@ services:
     volumes:
       - ./requirements/nginx/conf/:/etc/nginx
       - ./requirements/nginx/tools/:/usr/share/nginx/html
+  wordpress:
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    ports:
+      - "9000:80" # Map port 80 of the container to port 8080 on the host
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: your_db_user
+      WORDPRESS_DB_PASSWORD: your_db_password
+      WORDPRESS_DB_NAME: your_db_name
+    depends_on:
+      - mariadb
+    networks:
+      - mynetwork
+  mariadb:
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:
