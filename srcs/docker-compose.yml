@@ -3,24 +3,29 @@ version: '3'
 services:
   nginx:
     image: nginx
+    container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
+    env_file: .env
     networks:
       - mynetwork
     volumes:
       - ./requirements/nginx/conf/:/etc/nginx
       - ./requirements/nginx/tools/:/usr/share/nginx/html
+    restart: always
   wordpress:
     image: wordpress
+    container_name: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     ports:
       - "9000:80" # Map port 80 of the container to port 8080 on the host
+    env_file: .env
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: your_db_user
@@ -30,16 +35,19 @@ services:
       - mariadb
     networks:
       - mynetwork
+    restart: always
   mariadb:
     image: mariadb
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     ports:
       - "3306:3306"
+    env_file: .env
     networks:
       - mynetwork
-
+    restart: always
 networks:
   mynetwork:
     driver: bridge
