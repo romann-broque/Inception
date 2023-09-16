@@ -13,6 +13,8 @@ WORDPRESS_DIR		= $(REQ_DIR)/wordpress/
 ## IMAGES ##
 
 RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q); fi
+RM_VOL 				:= if [ "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi
+RM_ALL 				:= docker system prune -af
 
 all:
 	cd $(SRCS); docker-compose build
@@ -23,10 +25,12 @@ stop:
 
 clean: stop
 	cd $(NGINX_FOLDER); $(RM_IMG)
+	cd $(NGINX_FOLDER); $(RM_VOL)
 
 fclean: clean
+	cd $(NGINX_FOLDER); $(RM_ALL)
 
-re: clean
+re: fclean
 	$(MAKE)
 
 .SILENT:

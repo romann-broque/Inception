@@ -13,9 +13,6 @@ services:
     env_file: .env
     networks:
       - mynetwork
-    volumes:
-      - ./requirements/nginx/conf/:/etc/nginx
-      - ./requirements/nginx/tools/:/usr/share/nginx/html
     restart: always
   # wordpress:
   #   image: wordpress
