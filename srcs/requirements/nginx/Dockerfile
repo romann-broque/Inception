@@ -13,7 +13,6 @@ RUN mkdir -p /var/run/nginx/
 WORKDIR /etc/nginx
 
 # Copy the NGINX configuration, SSL certificate, and key into the container
-
 COPY ./conf/ /etc/nginx/
 COPY ./tools/index.html /usr/share/nginx/html/index.html
 
