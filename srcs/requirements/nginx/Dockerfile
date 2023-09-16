@@ -1,5 +1,9 @@
 # Use the official NGINX image as the base image
-FROM nginx:1.21.4
+FROM debian:buster
+
+# Update the package repository and install NGINX
+RUN apt-get update && \
+	apt-get install -y nginx
 
 # Set the working directory inside the container
 WORKDIR /etc/nginx
