@@ -1,23 +1,27 @@
-# Use a base image (e.g., a specific Linux distribution) as your starting point
-FROM ubuntu:20.04
-
-# Set environment variables for MariaDB configuration
-ENV MYSQL_ROOT_PASSWORD=root_password
-ENV MYSQL_USER=db_user
-ENV MYSQL_PASSWORD=db_password
-ENV MYSQL_DATABASE=db_name
+FROM debian:bullseye
 
 # Install MariaDB server and client
 RUN apt-get update && \
-    apt-get install -y mariadb-server mariadb-client && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get install mariadb-server mariadb-client -y
 
-# Copy custom MariaDB configuration files (if needed)
-# COPY my.cnf /etc/mysql/my.cnf
+# RUN mkdir -p /run/mysqld/
 
 # Expose the default MariaDB port
 EXPOSE 3306
 
+# Set the working directory inside the container
+# WORKDIR /etc/mysql/mariadb.conf.d
+
+# Copy the MariaDB configuration
+# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Copy the init DB script
+# COPY ./tools/init_db.sh /docker-entrypoint-initdb.d/init_db.sh
+
+# Make the init DB script executable (if needed)
+# RUN chmod +x /docker-entrypoint-initdb.d/init_db.sh
+
 # Start the MariaDB server on container startup
 CMD ["mysqld"]
+# CMD ["mysqld", "--socket=/run/mysqld/mysqld.sock", "--log-error=/var/log/mysql/error.log", "--general-log"]
+

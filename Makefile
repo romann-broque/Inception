@@ -12,7 +12,7 @@ WORDPRESS_DIR		= $(REQ_DIR)/wordpress/
 
 ## IMAGES ##
 
-RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q); fi
+RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q) -f; fi
 RM_VOL 				:= if [ "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi
 RM_ALL 				:= docker system prune -af
 

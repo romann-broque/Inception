@@ -33,18 +33,18 @@ services:
   #   networks:
   #     - mynetwork
   #   restart:
-  # mariadb:
-  #   image: mariadb
-  #   container_name: mariadb
-  #   build:
-  #     context: ./requirements/mariadb
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3306:3306"
-  #   env_file: .env
-  #   networks:
-  #     - mynetwork
-  #   restart: always
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    env_file: .env
+    networks:
+      - mynetwork
+    # restart: always
 networks:
   mynetwork:
     driver: bridge
