@@ -13,7 +13,7 @@ services:
     env_file: .env
     networks:
       - mynetwork
-    restart: always
+    restart: on-failure
   # wordpress:
   #   image: wordpress
   #   container_name: wordpress
@@ -44,7 +44,7 @@ services:
     env_file: .env
     networks:
       - mynetwork
-    # restart: always
+    restart: on-failure
 networks:
   mynetwork:
     driver: bridge
