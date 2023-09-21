@@ -1,8 +1,8 @@
 FROM debian:bullseye
 
 # Install MariaDB server and client
-RUN apt-get update && \
-    apt-get install mariadb-server mariadb-client -y && \
+RUN apt-get update && apt-get upgrade && \
+    apt-get install mariadb-server -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Give permissions on specific folders 
@@ -25,7 +25,6 @@ RUN chmod +x /etc/mysql/init_db.sh
 
 # Expose the default MariaDB port
 EXPOSE 3306
-
 
 # Start the MariaDB server on container startup
 ENTRYPOINT [ "/etc/mysql/init_db.sh" ]

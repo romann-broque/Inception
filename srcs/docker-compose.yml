@@ -12,27 +12,22 @@ services:
       - "443:443"
     env_file: .env
     networks:
-      - mynetwork
+      - inception
     restart: on-failure
-  # wordpress:
-  #   image: wordpress
-  #   container_name: wordpress
-  #   build:
-  #     context: ./requirements/wordpress
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "9000:80" # Map port 80 of the container to port 8080 on the host
-  #   env_file: .env
-  #   environment:
-  #     WORDPRESS_DB_HOST: mysql
-  #     WORDPRESS_DB_USER: your_db_user
-  #     WORDPRESS_DB_PASSWORD: your_db_password
-  #     WORDPRESS_DB_NAME: your_db_name
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - mynetwork
-  #   restart:
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    env_file: .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: on-failure
   mariadb:
     image: mariadb
     container_name: mariadb
@@ -43,8 +38,8 @@ services:
       - "3306:3306"
     env_file: .env
     networks:
-      - mynetwork
+      - inception
     restart: on-failure
 networks:
-  mynetwork:
+  inception:
     driver: bridge

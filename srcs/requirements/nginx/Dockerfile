@@ -1,8 +1,7 @@
-# Use the official NGINX image as the base image
 FROM debian:bullseye
 
 # Update the package repository and install NGINX
-RUN apt-get update && \
+RUN apt-get update && apt-get upgrade && \
 	apt-get install nginx -y
 RUN apt-get install openssl -y
 
