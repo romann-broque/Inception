@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # Update the package repository and install NGINX
 RUN apt-get update && apt-get upgrade && \
-	apt-get install nginx -y
+	apt-get install nginx gettext-base -y
 RUN apt-get install openssl -y
 
 # SSL generation
@@ -14,12 +14,17 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/ngin
 WORKDIR /etc/nginx
 
 # Copy the NGINX configuration
-COPY ./conf/nginx.conf /etc/nginx/
+COPY ./conf/nginx.conf.template /etc/nginx/
 COPY ./tools/index.html /usr/share/nginx/html/index.html
 
 # Expose ports 80 and 443 for HTTP and HTTPS traffic
 EXPOSE 80
 EXPOSE 443
 
-# Define the entry point command to start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+# Copy entrypoint script
+
+COPY ./conf/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

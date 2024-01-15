@@ -5,7 +5,7 @@ RUN apt-get update && apt-get upgrade && \
     apt-get install mariadb-server -y && \
     rm -rf /var/lib/apt/lists/*
 
-# Give permissions on specific folders 
+# Give permissions on specific folders
 
 RUN mkdir -p /var/run/mysqld \
 && chown -R mysql:mysql /var/run/mysqld \
@@ -28,4 +28,3 @@ EXPOSE 3306
 
 # Start the MariaDB server on container startup
 ENTRYPOINT [ "/etc/mysql/init_db.sh" ]
- 

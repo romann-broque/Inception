@@ -1,5 +1,11 @@
 SHELL=/bin/bash
 
+## CONTAINERS ##
+
+NGINX				= nginx
+WORDPRESS			= wordpress
+MARIADB				= mariadb
+
 ## FOLDERS ##
 
 SRCS				+= srcs/
@@ -20,15 +26,27 @@ all:
 	cd $(SRCS); docker-compose build
 	cd $(SRCS); docker-compose up -d
 
+up:
+	cd $(SRCS); docker-compose up -d
+
 stop:
+	docker stop $(NGINX)
+	docker stop $(WORDPRESS)
+	docker stop $(MARIADB)
 	cd $(SRCS); docker-compose down
 
 clean: stop
-	cd $(NGINX_FOLDER); $(RM_IMG)
-	cd $(NGINX_FOLDER); $(RM_VOL)
+	cd $(NGINX_DIR); $(RM_IMG)
+	cd $(NGINX_DIR); $(RM_VOL)
+	cd $(MARIADB_DIR); $(RM_IMG)
+	cd $(MARIADB_DIR); $(RM_VOL)
+	cd $(WORDPRESS_DIR); $(RM_IMG)
+	cd $(WORDPRESS_DIR); $(RM_VOL)
 
 fclean: clean
-	cd $(NGINX_FOLDER); $(RM_ALL)
+	cd $(NGINX_DIR); $(RM_ALL)
+	cd $(MARIADB_DIR); $(RM_ALL)
+	cd $(WORDPRESS_DIR); $(RM_ALL)
 
 re: fclean
 	$(MAKE)
