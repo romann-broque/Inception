@@ -36,4 +36,4 @@ else
     echo "WordPress setup has already been run, skipping..."
 fi
 
-exec php7.4-fpm -F
+exec /usr/sbin/php-fpm7.4 -F
