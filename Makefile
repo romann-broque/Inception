@@ -18,14 +18,19 @@ WORDPRESS_DIR		= $(REQ_DIR)/wordpress/
 
 ## VOLUMES ##
 
-CREATE_VOLUMES		= sudo mkdir -p ~/data/wordpress ~/data/mariadb
-RM_VOLUMES			= sudo rm -fr ~/data/wordpress ~/data/mariadb
+VOLUMES				+= ~/data/mariadb
+VOLUMES				+= ~/data/wordpress
 
-## IMAGES ##
+## COMMANDS ##
 
+CREATE_VOLUMES		:= sudo mkdir -p ~/data/wordpress ~/data/mariadb
+RM_VOLUMES			:= sudo rm -fr ~/data/wordpress ~/data/mariadb
+STOP_CONT			:= if [ "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); fi
 RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q) -f; fi
 RM_VOL 				:= if [ "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi
 RM_ALL 				:= docker system prune -af
+
+## RULES ##
 
 all:
 	$(CREATE_VOLUMES)
@@ -36,9 +41,7 @@ up:
 	cd $(SRCS); docker-compose up -d
 
 stop:
-	docker stop $(NGINX)
-	docker stop $(WORDPRESS)
-	docker stop $(MARIADB)
+	$(STOP_CONT);
 	cd $(SRCS); docker-compose down
 
 clean: stop

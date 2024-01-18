@@ -9,10 +9,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 EXPOSE 9000
 
-# COPY files/42logo.png /42logo.png
 RUN mkdir -p /var/www/html/
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY tools/wordpress.sh /wordpress.sh
+COPY files/42logo.png /42logo.png
 RUN chmod +x /wordpress.sh
 
 ENTRYPOINT ["/wordpress.sh"]
