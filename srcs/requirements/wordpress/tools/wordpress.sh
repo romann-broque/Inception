@@ -10,7 +10,6 @@ lock_file="/var/www/html/.setup_complete"
 
 if [ ! -f $lock_file ]; then
     cd /var/www/html
-
     wp core download --allow-root
     rm -f /var/www/html/wp-config.php
     wp config create --dbname=$MYSQL_DATABASE --dbhost=$MYSQL_HOST --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --allow-root --skip-check
@@ -21,9 +20,7 @@ if [ ! -f $lock_file ]; then
     done
 
     wp core install --url="$DOMAIN_NAME" --title="Ooooh very googoo gaga" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --allow-root
-
   	wp config set ALLOW_UNFILTERED_UPLOADS true --raw --allow-root
-
     wp user create $WP_SUBSCRIBER_USER $WP_SUBSCRIBER_EMAIL --role=subscriber --user_pass=$WP_SUBSCRIBER_PASSWORD --allow-root
     wp theme install twentyseventeen --activate --allow-root
     wp post delete $(wp post list --format=ids --allow-root) --allow-root

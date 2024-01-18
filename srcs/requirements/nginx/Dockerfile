@@ -14,7 +14,7 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/ngin
 WORKDIR /etc/nginx
 
 # Copy the NGINX configuration
-COPY ./conf/nginx.conf.template /etc/nginx/
+COPY ./conf/nginx.cnf.template /etc/nginx/
 COPY ./tools/index.html /usr/share/nginx/html/index.html
 RUN chown -R www-data:www-data /var/www/html
 

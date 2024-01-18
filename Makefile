@@ -16,6 +16,11 @@ NGINX_DIR			= $(REQ_DIR)/nginx/
 TOOLS_DIR			= $(REQ_DIR)/tools/
 WORDPRESS_DIR		= $(REQ_DIR)/wordpress/
 
+## VOLUMES ##
+
+CREATE_VOLUMES		= sudo mkdir -p ~/data/wordpress ~/data/mariadb
+RM_VOLUMES			= sudo rm -fr ~/data/wordpress ~/data/mariadb
+
 ## IMAGES ##
 
 RM_IMG 				:= if [ "$$(docker images -q)" ]; then docker rmi $$(docker images -q) -f; fi
@@ -23,6 +28,7 @@ RM_VOL 				:= if [ "$$(docker volume ls -q)" ]; then docker volume rm $$(docker 
 RM_ALL 				:= docker system prune -af
 
 all:
+	$(CREATE_VOLUMES)
 	cd $(SRCS); docker-compose build
 	cd $(SRCS); docker-compose up -d
 
@@ -47,6 +53,7 @@ fclean: clean
 	cd $(NGINX_DIR); $(RM_ALL)
 	cd $(MARIADB_DIR); $(RM_ALL)
 	cd $(WORDPRESS_DIR); $(RM_ALL)
+	$(RM_VOLUMES)
 
 re: fclean
 	$(MAKE)

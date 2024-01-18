@@ -4,7 +4,6 @@ FROM debian:bullseye
 RUN apt-get update && apt-get upgrade && \
     apt-get install mariadb-server -y && \
     rm -rf /var/lib/apt/lists/*
-    # rm -rf /var/lib/mysql/mysql
 
 # Give permissions on specific folders
 
