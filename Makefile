@@ -85,4 +85,4 @@ re: fclean all
 	$(RM_VOLUMES)
 
 .SILENT:
-.PHONY: all up stop clean fclean re create_volumes start_containers stop_containers remove_images remove_volumes
+.PHONY:
