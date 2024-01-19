@@ -1,5 +1,8 @@
 #!/bin/bash
 
+MYSQL_HOST=mariadb
+MYSQL_DATABASE=wordpress
+
 MARIADB_HOST=${MARIADB_HOST:-mariadb}
 MARIADB_IP=$(getent hosts $MARIADB_HOST | awk '{ print $1 }')
 echo "$MARIADB_IP $MARIADB_HOST" >> /etc/hosts
@@ -18,7 +21,7 @@ if [ ! -f $lock_file ]; then
         sleep 1
     done
 
-    wp core install --url="$DOMAIN_NAME" --title="Inception" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --allow-root
+    wp core install --url="rbroque.42.fr" --title="Inception" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --allow-root
     wp user create $WP_SUBSCRIBER_USER $WP_SUBSCRIBER_EMAIL --role=subscriber --user_pass=$WP_SUBSCRIBER_PASSWORD --allow-root
     wp theme install twentyseventeen --activate --allow-root
     wp post delete $(wp post list --format=ids --allow-root) --allow-root

@@ -1,11 +1,8 @@
 #!/bin/bash
-
-# Wait for Wordpress
-echo "Waiting for Wordpress"
-
-# Substitute environment variables in the NGINX configuration file
-envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.cnf.template > /etc/nginx/nginx.conf
+echo "Waiting for Wordpress..."
+sleep 10
 
 # Start NGINX
-echo "Start Nginx"
+
+echo "Nginx starts"
 nginx -g 'daemon off;'

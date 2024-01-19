@@ -6,7 +6,6 @@ RUN apt-get update && apt-get upgrade && \
     rm -rf /var/lib/apt/lists/*
 
 # Give permissions on specific folders
-
 RUN mkdir -p /var/run/mysqld \
 && chown -R mysql:mysql /var/run/mysqld \
 && chmod 777 /var/run/mysqld
