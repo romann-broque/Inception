@@ -13,14 +13,13 @@ WORKDIR /etc/nginx
 
 # Copy the NGINX configuration
 COPY ./conf/nginx.conf /etc/nginx/
-COPY ./tools/index.html /usr/share/nginx/html/index.html
 RUN chown -R www-data:www-data /var/www/html
 
 # Expose port 443 for HTTPS traffic
 EXPOSE 443
 
 # Copy entrypoint script
-COPY ./conf/entrypoint.sh /usr/local/bin/
+COPY ./tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set entrypoint
