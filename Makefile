@@ -55,9 +55,14 @@ MISSING_VAR_HELP 	:= Environment variables are missing, type "make help"
 
 ## CHECK IF ENV IS COMPLETE ##
 
+ifeq ($(wildcard $(SRCS)$(ENV_FILE)),)
+$(error $(ENV_FILE) not found in $(SRCS) directory. Please create the $(ENV_FILE) file.)
+endif
+
 include $(SRCS)/$(ENV_FILE)
 
 CHECK_ENV = true
+
 ifeq ($(words $(MAKECMDGOALS)),1)
    ifeq ($(filter help,$(MAKECMDGOALS)),help)
        CHECK_ENV = false

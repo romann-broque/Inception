@@ -2,7 +2,6 @@ FROM debian:bullseye
 
 # Update the package repository and install wordpress
 RUN apt-get update && apt-get install -y curl php7.4-fpm php7.4-mysql mariadb-client php7.4-gd
-RUN	apt-get install net-tools -y
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
